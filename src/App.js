@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Image from './img/people.svg'
+
+import { Button , Container, List } from './styles'
+
 
 function App() {
+  const [coment, setComents] = React.useState()
+  const [allComents, setAllComents] = React.useState([])
+
+  function handleClickButton() {
+    const allOldComents = [...allComents, coment]
+
+    setAllComents(allOldComents)
+  }
+
+  function handleTextArea(event) {
+    setComents(event.target.value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <img src={Image} alt="imagem-pessoas" />
+      <textarea onChange={handleTextArea}></textarea>
+      <Button isOn={coment}  onClick={handleClickButton}>Comentar</Button>
+
+      <List>
+        {
+          allComents.map((cmt, index) => (
+            <li key={index}>{cmt}</li>
+          ))
+        }
+      </List>
+    </Container>
   );
 }
 
